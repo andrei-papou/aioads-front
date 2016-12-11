@@ -1,0 +1,21 @@
+.form {
+    padding: 35px 120px;
+}
+
+.form-field {
+    display: block !important;
+    width: 100% !important;
+}
+
+.form-btn-container {
+    display: block;
+    margin-top: 40px;
+}
+
+.form-btn-container .form-btn {
+    margin-right: 15px;
+}
+
+.form-btn-container .form-btn-muted {
+    color: #999 !important;
+}
