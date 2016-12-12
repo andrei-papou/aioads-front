@@ -42,7 +42,7 @@ class Login extends Component {
                                       primary={true}
                                       disabled={invalid || submitting}
                                       className="form-btn" />
-                        <Link to="/">
+                        <Link to="/anon/signup">
                             <FlatButton label="Don't have an account?" className="form-btn form-btn-muted" />
                         </Link>
                     </div>

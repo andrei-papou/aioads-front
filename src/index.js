@@ -9,6 +9,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Authentication from './containers/Authentication';
 import Anon from './components/Anon';
 import Login from './components/Login';
+import Signup from './components/Signup';
 import getStore from './store';
 
 injectTapEventPlugin();
@@ -24,6 +25,7 @@ ReactDOM.render(
                     <Route path="/anon" component={Anon}>
                         <IndexRedirect to="/anon/login" />
                         <Route path="/anon/login" component={Login} />
+                        <Route path="/anon/signup" component={Signup} />
                     </Route>
                 </Route>
             </Router>
