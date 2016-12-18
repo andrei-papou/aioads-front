@@ -9,6 +9,6 @@ export default function userReducer(state = _defaultState, action) {
         case UserActions.LOGOUT:
             return _defaultState;
         default:
-            return state; 
+            return state;
     }
 }

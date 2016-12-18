@@ -6,14 +6,14 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 
 
-class AdPlacerSignup extends Component {
+class AdProviderSignup extends Component {
 
     static propTypes = {
         authProvider: PropTypes.object.isRequired
-    };
+    }
 
     onSubmit(values) {
-        this.props.authProvider.signupAdPlacer(values);
+        this.props.authProvider.signupAdProvider(values);
     }
 
     render() {
@@ -22,11 +22,9 @@ class AdPlacerSignup extends Component {
         return (
             <form className="form">
                 <Field name="email" component={TextField} floatingLabelText="Email" className="form-field" />
+                <Field name="password" component={TextField} floatingLabelText="Password" type="password" className="form-field" />
                 <Field name="first_name" component={TextField} floatingLabelText="First name" className="form-field" />
                 <Field name="last_name" component={TextField} floatingLabelText="Last name" className="form-field" />
-                <Field name="password" component={TextField} floatingLabelText="Password" type="password" className="form-field" />
-                <Field name="website" component={TextField} floatingLabelText="Website" className="form-field" />
-                <Field name="visitors_per_day_count" component={TextField} floatingLabelText="Visitors per day count" type="number" className="form-field" />
                 <div className="form-btn-container">
                     <RaisedButton label="Sign Up"
                                   type="submit"
@@ -46,5 +44,5 @@ class AdPlacerSignup extends Component {
 
 
 export default reduxForm({
-    form: 'ad-placer-signup',
-})(AdPlacerSignup);
+    form: 'ad-provider-signup'
+})(AdProviderSignup);

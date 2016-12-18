@@ -6,7 +6,8 @@ import IconButton from 'material-ui/IconButton';
 import PublicIcon from 'material-ui/svg-icons/social/public';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-import { TextField } from 'redux-form-material-ui';
+import MenuItem from 'material-ui/MenuItem';
+import { TextField, SelectField } from 'redux-form-material-ui';
 import '../styles/Form.css';
 
 
@@ -23,7 +24,6 @@ class Login extends Component {
     };
 
     onSubmit(values) {
-        console.log(values);
         this.props.authProvider.login(values);
     }
 
@@ -36,6 +36,11 @@ class Login extends Component {
                 <form className="form" onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                     <Field name="email" component={TextField} floatingLabelText="Email" className="form-field" />
                     <Field name="password" component={TextField} floatingLabelText="Password" type="password" className="form-field" />
+                    <Field name="account_type" component={SelectField} floatingLabelText="Account type" className="form-field">
+                        <MenuItem value={1} primaryText="Never" />
+                        <MenuItem value={2} primaryText="Every Night" />
+                        <MenuItem value={3} primaryText="Weeknights" />
+                    </Field>
                     <div className="form-btn-container">
                         <RaisedButton label="Login"
                                       type="submit"

@@ -7,15 +7,19 @@ import { Router, Route, IndexRedirect, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Authentication from './containers/Authentication';
-import Anon from './components/Anon';
+import Anon from './containers/Anon';
+import AdPlacer from './containers/AdPlacer';
+import AdProvider from './containers/AdProvider';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import getStore from './store';
+
 
 injectTapEventPlugin();
 
 const store = getStore(browserHistory);
 const history = syncHistoryWithStore(browserHistory, store);
+
 
 ReactDOM.render(
     <Provider store={store} >
@@ -27,9 +31,11 @@ ReactDOM.render(
                         <Route path="/anon/login" component={Login} />
                         <Route path="/anon/signup" component={Signup} />
                     </Route>
+                    <Route path="/placer" component={AdPlacer} />
+                    <Route path="/provider" component={AdProvider} />
                 </Route>
             </Router>
-    </MuiThemeProvider>
+        </MuiThemeProvider>
     </Provider>,
     document.getElementById('root')
 );

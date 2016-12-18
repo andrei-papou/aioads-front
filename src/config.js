@@ -3,9 +3,9 @@ export const DEFAULT_STATE = {
     list: []
 };
 
-export const API_URL = 'http://localhost:8000/';
+export const API_URL = 'http://10.0.0.5:8000/';
 
 export const UserTypes = {
     PROVIDER: 'ad-provider',
     PLACER: 'ad-placer'
-}
+};

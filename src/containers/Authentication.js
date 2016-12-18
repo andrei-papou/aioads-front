@@ -2,8 +2,10 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { routerActions } from 'react-router-redux';
+import RefreshIndicator from 'material-ui/RefreshIndicator';
 import { UserTypes } from '../config';
 import AuthProvider from '../providers/auth-provider';
+
 
 class Authentication extends Component {
 
@@ -13,10 +15,18 @@ class Authentication extends Component {
         authProvider: PropTypes.object.isRequired
     };
 
-    componentDidMount() {
-        const { user, routerActions, authProvider } = this.props;
+    constructor(props) {
+        super(props);
+        this.state = { loading: false };
+    }
 
-        authProvider.checkAuth(user);
+    handleAnonUser() {
+        const { routerActions } = this.props;
+        routerActions.push({pathname: '/anon'});
+    }
+
+    handleAuthedUser(user) {
+        const { routerActions } = this.props;
         switch (user.type) {
             case UserTypes.PROVIDER:
                 routerActions.push({pathname: '/provider'});
@@ -24,15 +34,62 @@ class Authentication extends Component {
             case UserTypes.PLACER:
                 routerActions.push({pathname: '/placer'});
                 break;
-            default:
-                routerActions.push({pathname: '/anon'});
-                break;
+        }
+    }
+
+    loadingOn() {
+        this.setState({ loading: true });
+    }
+
+    loadingOff() {
+        this.setState({ loading: false });
+    }
+
+    componentDidMount() {
+        const { user, routerActions, authProvider } = this.props;
+
+        if (!user.type) {
+            this.loadingOn();
+            authProvider.getAccountData().then(result => {
+                this.loadingOff();
+                if (result) {
+                    console.log('authed');
+                    this.handleAuthedUser(user);
+                } else {
+                    console.log('unauthed');
+                    this.handleAnonUser();
+                }
+            });
+        } else {
+            console.log('sdf');
+            this.handleAuthedUser(user);
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.user !== this.props.user) {
+            const { user, routerActions, authProvider } = nextProps;
+
+            if (!user.type) {
+                this.loadingOn();
+                authProvider.getAccountData().then(result => {
+                    this.loadingOff();
+                    if (result) {
+                        this.handleAuthedUser(user);
+                    } else {
+                        this.handleAnonUser();
+                    }
+                });
+            } else {
+                this.handleAuthedUser(user);
+            }
         }
     }
 
     render() {
-        const { authProvider, children } = this.props;
-        return children && React.cloneElement(children, { authProvider });
+        return this.state.loading ? (
+            <RefreshIndicator size={80} left={10} top={0} status="loading" />
+        ) : this.props.children;
     }
 
 }

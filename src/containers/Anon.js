@@ -1,6 +1,9 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 import Paper from 'material-ui/Paper';
+import AuthProvider from '../providers/auth-provider';
 import '../styles/Anon.css';
+
 
 class Anon extends Component {
 
@@ -20,4 +23,9 @@ class Anon extends Component {
 
 }
 
-export default Anon;
+export default connect(
+    state => ({}),
+    dispatch => ({
+        authProvider: new AuthProvider(dispatch)
+    })
+)(Anon);
