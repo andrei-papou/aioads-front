@@ -1,0 +1,12 @@
+.advert-list {
+    padding: 25px;
+}
+
+.advert-list h3,
+.advert-list p {
+    font-family: Roboto;
+}
+
+.advert-list p {
+    margin-bottom: 40px;
+}

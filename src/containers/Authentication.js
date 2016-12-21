@@ -5,6 +5,7 @@ import { routerActions } from 'react-router-redux';
 import RefreshIndicator from 'material-ui/RefreshIndicator';
 import { UserTypes } from '../config';
 import AuthProvider from '../providers/auth-provider';
+import '../styles/Authentication.css';
 
 
 class Authentication extends Component {
@@ -85,7 +86,9 @@ class Authentication extends Component {
 
     render() {
         return this.state.loading ? (
-            <RefreshIndicator size={80} left={10} top={0} status="loading" />
+            <div className="auth-loader">
+                <RefreshIndicator size={160} left={10} top={0} status="loading" />
+            </div>
         ) : this.props.children;
     }
 

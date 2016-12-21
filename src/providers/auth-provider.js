@@ -1,9 +1,8 @@
 import Provider from './base/provider';
-import { API_URL } from '../config';
+import { API_URL, TOKEN_KEY } from '../config';
 import { UserActions } from '../actions';
 
 
-const LS_KEY = 'aioads-token';
 const LOGIN_URL = 'login';
 const GET_USER_DATA_URL = 'account-data';
 const AD_PLACER_SIGNUP_URL = 'signup-ad-placer';
@@ -13,7 +12,7 @@ const AD_PROVIDER_SIGNUP_URL = 'signup-ad-provider';
 export default class AuthProvider extends Provider {
 
     _saveToken(token) {
-        localStorage.setItem(LS_KEY, token);
+        localStorage.setItem(TOKEN_KEY, token);
     }
 
     _signup(data, url) {
@@ -30,7 +29,7 @@ export default class AuthProvider extends Provider {
     }
 
     getAccountData(authToken) {
-        const token = authToken || localStorage.getItem(LS_KEY);
+        const token = authToken || localStorage.getItem(TOKEN_KEY);
         if (!token || token === 'undefined') return Promise.resolve(false);
         return fetch(`${API_URL}${GET_USER_DATA_URL}`, {
             method: 'GET',
@@ -38,7 +37,8 @@ export default class AuthProvider extends Provider {
                 'Authorization': token
             }
         })
-            .then(response => response.json())
+            .then(response => Promise.all([response, response.json()]))
+            .then(([response, json]) => this.checkError(response, json))
             .then(json => this.dispatch({
                 type: UserActions.LOGIN,
                 data: json
@@ -60,7 +60,7 @@ export default class AuthProvider extends Provider {
     }
 
     logout() {
-        localStorage.removeItem(LS_KEY);
+        localStorage.removeItem(TOKEN_KEY);
         this.dispatch({ type: UserActions.LOGOUT });
     }
 

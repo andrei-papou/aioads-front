@@ -3,6 +3,8 @@ export const DEFAULT_STATE = {
     list: []
 };
 
+export const TOKEN_KEY = 'aioads-token';
+
 export const API_URL = 'http://10.0.0.5:8000/';
 
 export const UserTypes = {
