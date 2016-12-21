@@ -53,15 +53,12 @@ class Authentication extends Component {
             authProvider.getAccountData().then(result => {
                 this.loadingOff();
                 if (result) {
-                    console.log('authed');
                     this.handleAuthedUser(user);
                 } else {
-                    console.log('unauthed');
                     this.handleAnonUser();
                 }
             });
         } else {
-            console.log('sdf');
             this.handleAuthedUser(user);
         }
     }
