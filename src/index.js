@@ -11,6 +11,7 @@ import Anon from './containers/Anon';
 import AdPlacer from './containers/AdPlacer';
 import AdProvider from './containers/AdProvider';
 import AdvertList from './containers/AdvertList';
+import AdvertObject from './containers/AdvertObject';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import getStore from './store';
@@ -36,6 +37,7 @@ ReactDOM.render(
                     <Route path="/provider" component={AdProvider}>
                         <IndexRedirect to="/provider/adverts" />
                         <Route path="/provider/adverts" component={AdvertList} />
+                        <Route path="/provider/adverts/:id" component={AdvertObject} />
                     </Route>
                 </Route>
             </Router>

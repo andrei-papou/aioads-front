@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import AdvertProvider from '../providers/advert-provider';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import '../styles/AdvertList.css';
@@ -36,8 +37,8 @@ class AdvertList extends Component {
                     <TableBody>
                         {
                             adverts.map(ad => (
-                                <TableRow>
-                                    <TableRowColumn>{ad.id}</TableRowColumn>
+                                <TableRow key={ad.id}>
+                                    <TableRowColumn><Link to={`/provider/adverts/${ad.id}`}>{ad.id}</Link></TableRowColumn>
                                     <TableRowColumn>{ad.follow_url_link}</TableRowColumn>
                                     <TableRowColumn>{ad.description}</TableRowColumn>
                                     <TableRowColumn>{ad.clicks}</TableRowColumn>

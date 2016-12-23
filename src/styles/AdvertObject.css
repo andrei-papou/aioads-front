@@ -1,0 +1,12 @@
+.advert-object {
+    padding: 25px;
+}
+
+.advert-object h3,
+.advert-object p {
+    font-family: Roboto;
+}
+
+.advert-object p {
+    margin-bottom: 40px;
+}

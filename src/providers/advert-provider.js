@@ -9,6 +9,7 @@ export default class AdvertProvider extends DataProvider {
 
         this.resourceUrl = 'advert-orders';
         this.getListAction = AdvertActions.GET_LIST;
+        this.getObjectAction = AdvertActions.GET_OBJECT;
     }
 
 }

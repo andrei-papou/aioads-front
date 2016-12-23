@@ -47,7 +47,7 @@ class Authentication extends Component {
     }
 
     componentDidMount() {
-        const { user, routerActions, authProvider } = this.props;
+        const { user, authProvider } = this.props;
 
         if (!user.type) {
             this.loadingOn();

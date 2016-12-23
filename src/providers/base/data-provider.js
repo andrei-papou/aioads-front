@@ -13,13 +13,23 @@ export default class DataProvider extends Provider {
     getList() {
         this.checkInvariant('fetch list data', 'resourceUrl', 'getListAction');
 
-        return fetch(`${API_URL}${this.resourceUrl}`, {
-            headers: this.headers
-        })
+        return fetch(`${API_URL}${this.resourceUrl}`, { headers: this.headers })
             .then(response => Promise.all([response, response.json()]))
             .then(([response, json]) => this.checkError(response, json))
             .then(json => this.dispatch({
                 type: this.getListAction,
+                data: json
+            }));
+    }
+
+    getObject(id) {
+        this.checkInvariant('fetch object data', 'resourceUrl', 'getObjectAction');
+
+        return fetch(`${API_URL}${this.resourceUrl}/${id}`, { headers: this.headers })
+            .then(response => Promise.all([response, response.json()]))
+            .then(([response, json]) => this.checkError(response, json))
+            .then(json => this.dispatch({
+                type: this.getObjectAction,
                 data: json
             }));
     }
