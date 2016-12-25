@@ -19,7 +19,6 @@ class AdvertObject extends Component {
 
     render() {
         const { advert } = this.props;
-        console.log(advert);
 
         return (
             <div className="advert-object">
@@ -35,12 +34,20 @@ class AdvertObject extends Component {
                         <TableRow>
                             <TableHeaderColumn>ID</TableHeaderColumn>
                             <TableHeaderColumn>Description</TableHeaderColumn>
+                            <TableHeaderColumn>Follow url link</TableHeaderColumn>
+                            <TableHeaderColumn>Heading picture</TableHeaderColumn>
+                            <TableHeaderColumn>Views</TableHeaderColumn>
+                            <TableHeaderColumn>Clicks</TableHeaderColumn>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
                         <TableRow>
                             <TableRowColumn>{advert.id}</TableRowColumn>
                             <TableRowColumn>{advert.description}</TableRowColumn>
+                            <TableRowColumn>{advert.follow_url_link}</TableRowColumn>
+                            <TableRowColumn>{advert.heading_picture}</TableRowColumn>
+                            <TableRowColumn>{advert.views}</TableRowColumn>
+                            <TableRowColumn>{advert.clicks}</TableRowColumn>
                         </TableRow>
                     </TableBody>
                 </Table>
