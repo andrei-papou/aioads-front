@@ -1,8 +1,8 @@
 import { AdvertActions } from '../actions';
-import DataProvider from './base/data-provider';
+import AnalyticsProvider from './base/analytics-provider';
 
 
-export default class AdvertProvider extends DataProvider {
+export default class AdvertProvider extends AnalyticsProvider {
 
     constructor(dispatch) {
         super(dispatch);
@@ -10,6 +10,8 @@ export default class AdvertProvider extends DataProvider {
         this.resourceUrl = 'advert-orders';
         this.getListAction = AdvertActions.GET_LIST;
         this.getObjectAction = AdvertActions.GET_OBJECT;
+        this.getViewsDataAction = AdvertActions.GET_VIEWS_ANALYTICS;
+        this.getClicksDataAction = AdvertActions.GET_CLICKS_ANALYTICS;
     }
 
 }
