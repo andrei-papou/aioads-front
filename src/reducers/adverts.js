@@ -9,7 +9,7 @@ const _defaultState = {
 };
 
 
-export default function adverts(state = DEFAULT_STATE, action) {
+export default function adverts(state = _defaultState, action) {
 
     switch (action.type) {
 

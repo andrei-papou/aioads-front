@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import AdvertProvider from '../providers/advert-provider';
+import AnalyticsView from '../components/AnalyticsView';
 import '../styles/AdvertObject.css';
 
 
@@ -9,7 +10,9 @@ class AdvertObject extends Component {
 
     static propTypes = {
         advertProvider: PropTypes.object.isRequired,
-        advert: PropTypes.object.isRequired
+        advert: PropTypes.object.isRequired,
+        clicks: PropTypes.array.isRequired,
+        views: PropTypes.array.isRequired
     };
 
     componentDidMount() {
@@ -18,9 +21,10 @@ class AdvertObject extends Component {
     }
 
     render() {
-        const { advert } = this.props;
+        const { advert, clicks, views, advertProvider, params } = this.props;
+        const ranges = advertProvider.getRanges();
 
-        return (
+        return advert ? (
             <div className="advert-object">
                 <h3>{`Advert #${advert.id} details`}</h3>
                 <p>
@@ -51,8 +55,10 @@ class AdvertObject extends Component {
                         </TableRow>
                     </TableBody>
                 </Table>
+
+                <AnalyticsView id={params.id} data={clicks} methodsMapping={advertProvider.clicksMapping} ranges={ranges} />
             </div>
-        );
+        ) : null;
     }
 
 }
@@ -60,7 +66,9 @@ class AdvertObject extends Component {
 
 export default connect(
     state => ({
-        advert: state.adverts.object
+        advert: state.adverts.object,
+        clicks: state.adverts.analyticsClicks,
+        views: state.adverts.analyticsViews
     }),
     dispatch => ({
         advertProvider: new AdvertProvider(dispatch)

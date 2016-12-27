@@ -8,20 +8,21 @@ export default class AnalyticsProvider extends DataProvider {
         super(dispatch);
 
         this.clicksMapping = {
-            year: this.getYearClicksData,
-            month: this.getMonthClicksData,
-            day: this.getDayClicksData
+            year: this.getYearClicksData.bind(this),
+            month: this.getMonthClicksData.bind(this),
+            day: this.getDayClicksData.bind(this)
         };
         this.viewsMapping = {
-            year: this.getYearViewsData,
-            month: this.getMonthViewsData,
-            day: this.getDayViewsData
+            year: this.getYearViewsData.bind(this),
+            month: this.getMonthViewsData.bind(this),
+            day: this.getDayViewsData.bind(this)
         };
     }
 
     getRanges() {
-        const now = Date.now();
-        const yearRange = [now.getYear() - 10, now.getYear()];
+        const now = new Date();
+        const yearRange = [];
+        for (let i = now.getYear() + 1960; i <= now.getYear() + 1900; ++i) yearRange.push(i);
 
         const monthRange = [];
         for (let i = 1; i <= 12; ++i) monthRange.push(i);
@@ -39,8 +40,8 @@ export default class AnalyticsProvider extends DataProvider {
     getYearClicksData(id, year) {
         this.checkInvariant('fetch clicks data', 'getClicksDataAction');
 
-        year = year || Date.now().getYear();
-        return fetch(`${API_URL}${resourceUrl}/${id}/year-clicks?year=${year}`)
+        year = year || (new Date().getYear() + 1900);
+        return fetch(`${API_URL}${this.resourceUrl}/${id}/year-clicks?year=${year}`, {headers: this.headers})
             .then(response => Promise.all([response, response.json()]))
             .then(([response, json]) => this.checkError(response, json))
             .then(json => this.dispatch({
@@ -52,10 +53,10 @@ export default class AnalyticsProvider extends DataProvider {
     getMonthClicksData(id, year, month) {
         this.checkInvariant('fetch clicks data', 'getClicksDataAction');
 
-        const now = Date.now();
-        year = year || now.getYear();
+        const now = new Date();
+        year = year || (now.getYear() + 1900);
         month = month || now.getMonth();
-        return fetch(`${API_URL}${resourceUrl}/${id}/month-clicks?year=${year}&month=${month}`)
+        return fetch(`${API_URL}${this.resourceUrl}/${id}/month-clicks?year=${year}&month=${month}`, {headers: this.headers})
             .then(response => Promise.all([response, response.json()]))
             .then(([response, json]) => this.checkError(response, json))
             .then(json => this.dispatch({
@@ -67,12 +68,12 @@ export default class AnalyticsProvider extends DataProvider {
     getDayClicksData(id, year, month, day) {
         this.checkInvariant('fetch clicks data', 'getClicksDataAction');
 
-        const now = Date.now();
-        year = year || now.getYear();
+        const now = new Date();
+        year = year || (now.getYear() + 1900);
         month = month || now.getMonth();
         day = day || now.getDay();
 
-        return fetch(`${API_URL}${resourceUrl}/${id}/month-clicks?year=${year}&month=${month}&day=${day}`)
+        return fetch(`${API_URL}${this.resourceUrl}/${id}/month-clicks?year=${year}&month=${month}&day=${day}`, {headers: this.headers})
             .then(response => Promise.all([response, response.json()]))
             .then(([response, json]) => this.checkError(response, json))
             .then(json => this.dispatch({
@@ -84,8 +85,8 @@ export default class AnalyticsProvider extends DataProvider {
     getYearViewsData(id, year) {
         this.checkInvariant('fetch views data', 'getViewsDataAction');
 
-        year = year || Date.now().getYear();
-        return fetch(`${API_URL}${resourceUrl}/${id}/year-views?year=${year}`)
+        year = year || (new Date().getYear() + 1900);
+        return fetch(`${API_URL}${this.resourceUrl}/${id}/year-views?year=${year}`, {headers: this.headers})
             .then(response => Promise.all([response, response.json()]))
             .then(([response, json]) => this.checkError(response, json))
             .then(json => this.dispatch({
@@ -97,10 +98,10 @@ export default class AnalyticsProvider extends DataProvider {
     getMonthViewsData(id, year, month) {
         this.checkInvariant('fetch views data', 'getViewsDataAction');
 
-        const now = Date.now();
-        year = year || now.getYear();
+        const now = new Date();
+        year = year || (now.getYear() + 1900);
         month = month || now.getMonth();
-        return fetch(`${API_URL}${resourceUrl}/${id}/month-views?year=${year}&month=${month}`)
+        return fetch(`${API_URL}${this.resourceUrl}/${id}/month-views?year=${year}&month=${month}`, {headers: this.headers})
             .then(response => Promise.all([response, response.json()]))
             .then(([response, json]) => this.checkError(response, json))
             .then(json => this.dispatch({
@@ -112,12 +113,12 @@ export default class AnalyticsProvider extends DataProvider {
     getDayViewsData(id, year, month, day) {
         this.checkInvariant('fetch views data', 'getViewsDataAction');
 
-        const now = Date.now();
-        year = year || now.getYear();
+        const now = new Date();
+        year = year || (now.getYear() + 1900);
         month = month || now.getMonth();
         day = day || now.getDay();
 
-        return fetch(`${API_URL}${resourceUrl}/${id}/month-views?year=${year}&month=${month}&day=${day}`)
+        return fetch(`${API_URL}${this.resourceUrl}/${id}/month-views?year=${year}&month=${month}&day=${day}`, {headers: this.headers})
             .then(response => Promise.all([response, response.json()]))
             .then(([response, json]) => this.checkError(response, json))
             .then(json => this.dispatch({
