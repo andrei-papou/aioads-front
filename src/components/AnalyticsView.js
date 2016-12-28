@@ -1,14 +1,17 @@
 import React, { Component, PropTypes } from 'react';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import MenuItem from 'material-ui/MenuItem';
 import { reduxForm, Field } from 'redux-form';
 import { SelectField } from 'redux-form-material-ui';
-import { BarCharts, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Bar } from 'recharts';
+import { BarChart, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Bar } from 'recharts';
+import '../styles/AnalyticsView.css';
 
 
 class AnalyticsView extends Component {
 
     static propTypes = {
+        heading: PropTypes.string.isRequired,
         id: PropTypes.string.isRequired,
         data: PropTypes.array.isRequired,
         methodsMapping: PropTypes.object.isRequired,
@@ -27,44 +30,41 @@ class AnalyticsView extends Component {
     }
 
     recalculateData(values) {
-        this.props.methodsMapping[this.periods.value](
-            values.year,
-            values.month,
-            values.day
-        );
+        console.log(values);
+        const { id } = this.props;
+        this.props.methodsMapping[this.state.period](id, values.year, values.month, values.day);
     }
 
     render() {
-        const { ranges, handleSubmit, data, params } = this.props;
+        const { ranges, handleSubmit, data, heading } = this.props;
         const { period } = this.state;
 
-        console.log(data);
-
         return (
-            <div>
-                <div>
+            <div className="analytics-view">
+                <h3>{heading}</h3>
+
+                <div className="analytics-view-radios">
                     <RadioButtonGroup onChange={(event, value) => this.setState({period: value})} name="period" defaultSelected="year">
-                        <RadioButton value="year" label="year" />
-                        <RadioButton value="month" label="month" />
-                        <RadioButton value="day" label="day" />
+                        <RadioButton className="period-radio" value="year" label="year" />
+                        <RadioButton className="period-radio" value="month" label="month" />
+                        <RadioButton className="period-radio" value="day" label="day" />
                     </RadioButtonGroup>
                 </div>
-                <div>
+
+                <div className="analytics-view-selects">
                     <Field name="year"
-                           onChange={handleSubmit(this.recalculateData)}
                            component={SelectField}
                            hintText="Year"
-                           className="form-field select-field">
+                           className="form-field select-field period-select">
                     {
                         ranges.year.map((y, i) => <MenuItem key={i} value={y} primaryText={y} />)
                     }
                     </Field>
-                    <Field onChange={handleSubmit(this.recalculateData)}
-                           disabled={period === 'year'}
+                    <Field disabled={period === 'year'}
                            name="month"
                            component={SelectField}
                            hintText="Month"
-                           className="form-field select-field">
+                           className="form-field select-field period-select">
                     {
                         ranges.month.map((m, i) => <MenuItem key={i} value={m} primaryText={m} />)
                     }
@@ -73,14 +73,23 @@ class AnalyticsView extends Component {
                            name="day"
                            component={SelectField}
                            hintText="Day"
-                           className="form-field select-field">
+                           className="form-field select-field period-select">
                     {
                         ranges.day.map((d, i) => <MenuItem key={i} value={d} primaryText={d} />)
                     }
                     </Field>
                 </div>
 
+                <RaisedButton onClick={handleSubmit(this.recalculateData)} primary={true} label="Recalculate" className="recalc-btn" />
 
+                <BarChart width={700} height={300} data={data}>
+                    <XAxis dataKey="label" />
+                    <YAxis />
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <Tooltip label="tooltip" />
+                    <Legend />
+                    <Bar dataKey="value" />
+                </BarChart>
             </div>
         );
     }
@@ -88,6 +97,4 @@ class AnalyticsView extends Component {
 }
 
 
-export default reduxForm({
-    form: 'analyticsView'
-})(AnalyticsView);
+export default reduxForm({})(AnalyticsView);

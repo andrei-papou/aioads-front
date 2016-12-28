@@ -10,7 +10,7 @@ class AdvertObject extends Component {
 
     static propTypes = {
         advertProvider: PropTypes.object.isRequired,
-        advert: PropTypes.object.isRequired,
+        advert: PropTypes.object,
         clicks: PropTypes.array.isRequired,
         views: PropTypes.array.isRequired
     };
@@ -33,30 +33,33 @@ class AdvertObject extends Component {
                         Its analytics and general data is presented below.
                     `}
                 </p>
-                <Table>
-                    <TableHeader>
-                        <TableRow>
-                            <TableHeaderColumn>ID</TableHeaderColumn>
-                            <TableHeaderColumn>Description</TableHeaderColumn>
-                            <TableHeaderColumn>Follow url link</TableHeaderColumn>
-                            <TableHeaderColumn>Heading picture</TableHeaderColumn>
-                            <TableHeaderColumn>Views</TableHeaderColumn>
-                            <TableHeaderColumn>Clicks</TableHeaderColumn>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        <TableRow>
-                            <TableRowColumn>{advert.id}</TableRowColumn>
-                            <TableRowColumn>{advert.description}</TableRowColumn>
-                            <TableRowColumn>{advert.follow_url_link}</TableRowColumn>
-                            <TableRowColumn>{advert.heading_picture}</TableRowColumn>
-                            <TableRowColumn>{advert.views}</TableRowColumn>
-                            <TableRowColumn>{advert.clicks}</TableRowColumn>
-                        </TableRow>
-                    </TableBody>
-                </Table>
+                <div className="advert-data">
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHeaderColumn>ID</TableHeaderColumn>
+                                <TableHeaderColumn>Description</TableHeaderColumn>
+                                <TableHeaderColumn>Follow url link</TableHeaderColumn>
+                                <TableHeaderColumn>Heading picture</TableHeaderColumn>
+                                <TableHeaderColumn>Views</TableHeaderColumn>
+                                <TableHeaderColumn>Clicks</TableHeaderColumn>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            <TableRow>
+                                <TableRowColumn>{advert.id}</TableRowColumn>
+                                <TableRowColumn>{advert.description}</TableRowColumn>
+                                <TableRowColumn>{advert.follow_url_link}</TableRowColumn>
+                                <TableRowColumn>{advert.heading_picture}</TableRowColumn>
+                                <TableRowColumn>{advert.views}</TableRowColumn>
+                                <TableRowColumn>{advert.clicks}</TableRowColumn>
+                            </TableRow>
+                        </TableBody>
+                    </Table>
+                </div>
 
-                <AnalyticsView id={params.id} data={clicks} methodsMapping={advertProvider.clicksMapping} ranges={ranges} />
+                <AnalyticsView form="a" heading="Clicks data" id={params.id} data={clicks} methodsMapping={advertProvider.clicksMapping} ranges={ranges} />
+                <AnalyticsView form="b" heading="Views data" id={params.id} data={views} methodsMapping={advertProvider.viewsMapping} ranges={ranges} />
             </div>
         ) : null;
     }

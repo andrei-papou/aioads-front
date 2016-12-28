@@ -1,0 +1,35 @@
+.analytics-view {
+    display: inline-block;
+    width: 50%;
+}
+
+.analytics-view-radios,
+.analytics-view-selects {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.analytics-view-radios {
+    margin-top: 50px;
+}
+
+.analytics-view-radios .period-radio {
+    width: 270px !important;
+    display: inline-block !important;
+}
+
+.analytics-view-selects {
+
+}
+
+.analytics-view-selects .period-select {
+    width: 240px !important;
+    margin-right: 30px !important;
+    display: inline-block !important;
+}
+
+.recalc-btn {
+    margin-top: 30px;
+    margin-bottom: 40px;
+    margin-left: 20px;
+}

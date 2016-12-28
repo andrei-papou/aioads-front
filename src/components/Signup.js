@@ -8,10 +8,6 @@ import AdProviderSignup from './AdProviderSignup';
 import '../styles/Form.css';
 
 
-const AD_PLACER_SIGNUP = 'ad-placer-signup';
-const AD_PROVIDER_SIGNUP = 'ad-provider-signup';
-
-
 export default class Signup extends Component {
 
     static propTypes = {
@@ -37,7 +33,3 @@ export default class Signup extends Component {
     }
 
 }
-
-
-'https://robo-pm-dev.stratifi.com/api/finfolio/report/accountbymodel/7b1f9c58-7641-4222-9c41-45d88787f6be?token=WyIyIiwiNjU4ZGMyZjA5ZGJiNGRkMzZkMTNjZmMzNjBlMTk5ZTEiXQ.Cm66yQ.7J671CvhSZtT8mX9ZFD6yLs96K8&start_date=08/31/2016&period=daily&strategy=LOGe%20US%20Large%20Cap'
-'https://robo-pm-dev.stratifi.com/api/finfolio/report/accountbymodel/7b1f9c58-7641-4222-9c41-45d88787?token=WyIyIiwiNjU4ZGMyZjA5ZGJiNGRkMzZkMTNjZmMzNjBlMTk5ZTEiXQ.Cm66yQ.7J671CvhSZtT8mX9ZFD6yLs96K8&strategy=LOGe+US+Large+Cap&start_date=01/01/2016&period=daily'

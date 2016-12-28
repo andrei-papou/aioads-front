@@ -4,8 +4,8 @@ import { AdvertActions } from '../actions';
 const _defaultState = {
     list: [],
     obj: {},
-    analyticsClicks: {},
-    analyticsViews: {}
+    analyticsClicks: [],
+    analyticsViews: []
 };
 
 

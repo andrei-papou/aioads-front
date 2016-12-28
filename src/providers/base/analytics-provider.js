@@ -22,7 +22,7 @@ export default class AnalyticsProvider extends DataProvider {
     getRanges() {
         const now = new Date();
         const yearRange = [];
-        for (let i = now.getYear() + 1960; i <= now.getYear() + 1900; ++i) yearRange.push(i);
+        for (let i = now.getYear() + 1890; i <= now.getYear() + 1900; ++i) yearRange.push(i);
 
         const monthRange = [];
         for (let i = 1; i <= 12; ++i) monthRange.push(i);

@@ -10,7 +10,7 @@ class AdProviderSignup extends Component {
 
     static propTypes = {
         authProvider: PropTypes.object.isRequired
-    }
+    };
 
     onSubmit(values) {
         this.props.authProvider.signupAdProvider(values);
