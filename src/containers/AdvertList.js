@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import AdvertProvider from '../providers/advert-provider';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
-import '../styles/AdvertList.css';
+import CreateAdvert from '../components/CreateAdvert';
+import '../styles/List.css';
 
 
 class AdvertList extends Component {
@@ -18,10 +19,10 @@ class AdvertList extends Component {
     }
 
     render() {
-        const { adverts } = this.props;
+        const { adverts, advertProvider } = this.props;
 
         return (
-            <div className="advert-list">
+            <div className="list">
                 <h3>Your advert orders</h3>
                 <p>A brief info about all the advert orders you've placed is displayed below.</p>
                 <Table>
@@ -48,6 +49,7 @@ class AdvertList extends Component {
                         }
                     </TableBody>
                 </Table>
+                <CreateAdvert advertProvider={advertProvider} />
             </div>
         );
     }
@@ -60,6 +62,6 @@ export default connect(
         adverts: state.adverts.list
     }),
     dispatch => ({
-        advertProvider: new AdvertProvider(dispatch)
+        provider: new AdvertProvider(dispatch)
     })
 )(AdvertList);

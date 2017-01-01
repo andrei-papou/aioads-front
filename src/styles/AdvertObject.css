@@ -1,16 +1,17 @@
-.advert-object {
+.object {
     padding: 25px;
 }
 
-.advert-object h3,
-.advert-object p {
+.object h3,
+.object p,
+.object div {
     font-family: Roboto;
 }
 
-.advert-object p {
+.object p {
     margin-bottom: 40px;
 }
 
-.advert-data {
+.data {
     margin-bottom: 50px;
 }

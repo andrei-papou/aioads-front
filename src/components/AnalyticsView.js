@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
+import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import MenuItem from 'material-ui/MenuItem';
 import { reduxForm, Field } from 'redux-form';
@@ -15,13 +15,14 @@ class AnalyticsView extends Component {
         id: PropTypes.string.isRequired,
         data: PropTypes.array.isRequired,
         methodsMapping: PropTypes.object.isRequired,
-        ranges: PropTypes.object.isRequired
+        provider: PropTypes.object.isRequired
     };
 
     constructor(props) {
         super(props);
-        this.state = { period: 'year' };
+        this.state = { period: 'year', ranges: props.provider.getRanges() };
         this.recalculateData = this.recalculateData.bind(this);
+        this.recalculateTimeRanges = this.recalculateTimeRanges.bind(this);
     }
 
     componentDidMount() {
@@ -30,21 +31,25 @@ class AnalyticsView extends Component {
     }
 
     recalculateData(values) {
-        console.log(values);
         const { id } = this.props;
         this.props.methodsMapping[this.state.period](id, values.year, values.month, values.day);
     }
 
+    recalculateTimeRanges(values) {
+        const { provider } = this.props;
+        this.setState({ ...this.state, ranges: provider.getRanges(values.year, values.month) });
+    }
+
     render() {
-        const { ranges, handleSubmit, data, heading } = this.props;
-        const { period } = this.state;
+        const { handleSubmit, data, heading } = this.props;
+        const { period, ranges } = this.state;
 
         return (
             <div className="analytics-view">
                 <h3>{heading}</h3>
 
                 <div className="analytics-view-radios">
-                    <RadioButtonGroup onChange={(event, value) => this.setState({period: value})} name="period" defaultSelected="year">
+                    <RadioButtonGroup onChange={(event, value) => this.setState({...this.state, period: value})} name="period" defaultSelected="year">
                         <RadioButton className="period-radio" value="year" label="year" />
                         <RadioButton className="period-radio" value="month" label="month" />
                         <RadioButton className="period-radio" value="day" label="day" />
@@ -54,6 +59,7 @@ class AnalyticsView extends Component {
                 <div className="analytics-view-selects">
                     <Field name="year"
                            component={SelectField}
+                           onChange={handleSubmit(this.recalculateTimeRanges)}
                            hintText="Year"
                            className="form-field select-field period-select">
                     {
@@ -63,6 +69,7 @@ class AnalyticsView extends Component {
                     <Field disabled={period === 'year'}
                            name="month"
                            component={SelectField}
+                           onChange={handleSubmit(this.recalculateTimeRanges)}
                            hintText="Month"
                            className="form-field select-field period-select">
                     {
@@ -72,6 +79,7 @@ class AnalyticsView extends Component {
                     <Field disabled={period === 'year' || period === 'month'}
                            name="day"
                            component={SelectField}
+                           onChange={handleSubmit(this.recalculateTimeRanges)}
                            hintText="Day"
                            className="form-field select-field period-select">
                     {

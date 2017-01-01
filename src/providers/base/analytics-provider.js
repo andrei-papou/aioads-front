@@ -19,16 +19,21 @@ export default class AnalyticsProvider extends DataProvider {
         };
     }
 
-    getRanges() {
+    getRanges(year, month) {
         const now = new Date();
+        const currentYear = now.getYear() + 1900;
+        year = year || currentYear;
+        month = month || now.getMonth();
+        const daysNumber = new Date(year, month, 0).getDate();
+
         const yearRange = [];
-        for (let i = now.getYear() + 1890; i <= now.getYear() + 1900; ++i) yearRange.push(i);
+        for (let i = currentYear - 10; i <= currentYear; ++i) yearRange.push(i);
 
         const monthRange = [];
         for (let i = 1; i <= 12; ++i) monthRange.push(i);
 
         const dayRange = [];
-        for (let i = 1; i <= now.getDay(); ++i) dayRange.push(i);
+        for (let i = 1; i <= daysNumber; ++i) dayRange.push(i);
 
         return {
             year: yearRange,
@@ -73,7 +78,7 @@ export default class AnalyticsProvider extends DataProvider {
         month = month || now.getMonth();
         day = day || now.getDay();
 
-        return fetch(`${API_URL}${this.resourceUrl}/${id}/month-clicks?year=${year}&month=${month}&day=${day}`, {headers: this.headers})
+        return fetch(`${API_URL}${this.resourceUrl}/${id}/day-clicks?year=${year}&month=${month}&day=${day}`, {headers: this.headers})
             .then(response => Promise.all([response, response.json()]))
             .then(([response, json]) => this.checkError(response, json))
             .then(json => this.dispatch({

@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
+import RaisedButton from 'material-ui/RaisedButton';
 import AdvertProvider from '../providers/advert-provider';
 import AnalyticsView from '../components/AnalyticsView';
 import '../styles/AdvertObject.css';
@@ -22,10 +24,9 @@ class AdvertObject extends Component {
 
     render() {
         const { advert, clicks, views, advertProvider, params } = this.props;
-        const ranges = advertProvider.getRanges();
 
         return advert ? (
-            <div className="advert-object">
+            <div className="object">
                 <h3>{`Advert #${advert.id} details`}</h3>
                 <p>
                     {`
@@ -33,7 +34,10 @@ class AdvertObject extends Component {
                         Its analytics and general data is presented below.
                     `}
                 </p>
-                <div className="advert-data">
+                <div>
+                    <Link to="/provider/adverts"><RaisedButton primary={true} label="Back to adverts list" /></Link>
+                </div>
+                <div className="data">
                     <Table>
                         <TableHeader>
                             <TableRow>
@@ -58,8 +62,18 @@ class AdvertObject extends Component {
                     </Table>
                 </div>
 
-                <AnalyticsView form="a" heading="Clicks data" id={params.id} data={clicks} methodsMapping={advertProvider.clicksMapping} ranges={ranges} />
-                <AnalyticsView form="b" heading="Views data" id={params.id} data={views} methodsMapping={advertProvider.viewsMapping} ranges={ranges} />
+                <AnalyticsView form="a"
+                               heading="Clicks data"
+                               id={params.id}
+                               data={clicks}
+                               methodsMapping={advertProvider.clicksMapping}
+                               provider={advertProvider} />
+                <AnalyticsView form="b"
+                               heading="Views data"
+                               id={params.id}
+                               data={views}
+                               methodsMapping={advertProvider.viewsMapping}
+                               provider={advertProvider} />
             </div>
         ) : null;
     }
@@ -74,6 +88,6 @@ export default connect(
         views: state.adverts.analyticsViews
     }),
     dispatch => ({
-        advertProvider: new AdvertProvider(dispatch)
+        provider: new AdvertProvider(dispatch)
     })
 )(AdvertObject);

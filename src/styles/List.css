@@ -1,12 +1,12 @@
-.advert-list {
+.list {
     padding: 25px;
 }
 
-.advert-list h3,
-.advert-list p {
+.list h3,
+.list p {
     font-family: Roboto;
 }
 
-.advert-list p {
+.list p {
     margin-bottom: 40px;
 }

@@ -35,6 +35,8 @@ class Authentication extends Component {
             case UserTypes.PLACER:
                 routerActions.push({pathname: '/placer'});
                 break;
+            default:
+                break;
         }
     }
 
@@ -66,7 +68,7 @@ class Authentication extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.user !== this.props.user) {
-            const { user, routerActions, authProvider } = nextProps;
+            const { user, authProvider } = nextProps;
 
             if (!user.type) {
                 this.loadingOn();

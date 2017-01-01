@@ -34,4 +34,16 @@ export default class DataProvider extends Provider {
             }));
     }
 
+    create(data) {
+        this.checkInvariant('create object', 'resourceUrl');
+
+        return fetch(`${API_URL}${this.resourceUrl}`, {
+            method: "POST",
+            headers: this.headers,
+            body: JSON.stringify(data)
+        })
+            .then(response => Promise.all([response, response.json()]))
+            .then(([response, json]) => this.checkError(response, json))
+    }
+
 }

@@ -12,6 +12,8 @@ import AdPlacer from './containers/AdPlacer';
 import AdProvider from './containers/AdProvider';
 import AdvertList from './containers/AdvertList';
 import AdvertObject from './containers/AdvertObject';
+import PlacementList from './containers/PlacementList';
+import PlacementObject from './containers/PlacementObject';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import getStore from './store';
@@ -28,12 +30,16 @@ ReactDOM.render(
         <MuiThemeProvider>
             <Router history={history}>
                 <Route path="/" component={Authentication} >
-                    <Route path="/anon" component={Anon}>
+                    <Route path="/anon" component={Anon} >
                         <IndexRedirect to="/anon/login" />
                         <Route path="/anon/login" component={Login} />
                         <Route path="/anon/signup" component={Signup} />
                     </Route>
-                    <Route path="/placer" component={AdPlacer} />
+                    <Route path="/placer" component={AdPlacer}>
+                        <IndexRedirect to="/placer/placements" />
+                        <Route path="/placer/placements" component={PlacementList} />
+                        <Route path="/placer/placements/:id" component={PlacementObject} />
+                    </Route>
                     <Route path="/provider" component={AdProvider}>
                         <IndexRedirect to="/provider/adverts" />
                         <Route path="/provider/adverts" component={AdvertList} />
