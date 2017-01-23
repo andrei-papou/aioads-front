@@ -20,7 +20,8 @@ export default class AuthProvider extends Provider {
             method: 'POST',
             body: JSON.stringify(data)
         })
-            .then(response => response.json())
+            .then(response => Promise.all([response, response.json()]))
+            .then(([response, json]) => this.checkError(response, json))
             .then(json => {
                 const token = json.token;
                 this._saveToken(token);

@@ -26,6 +26,7 @@
     width: 240px !important;
     margin-right: 30px !important;
     display: inline-block !important;
+    vertical-align: top;
 }
 
 .recalc-btn {

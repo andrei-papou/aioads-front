@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import { reduxForm, Field } from 'redux-form';
+import { reduxForm, Field, SubmissionError } from 'redux-form';
 import { TextField } from 'redux-form-material-ui';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
@@ -13,7 +13,9 @@ class AdPlacerSignup extends Component {
     };
 
     onSubmit(values) {
-        this.props.authProvider.signupAdPlacer(values);
+        return this.props.authProvider.signupAdPlacer(values).catch(errors => {
+          throw new SubmissionError(errors);
+        });
     }
 
     render() {

@@ -88,6 +88,6 @@ export default connect(
         views: state.adverts.analyticsViews
     }),
     dispatch => ({
-        provider: new AdvertProvider(dispatch)
+        advertProvider: new AdvertProvider(dispatch)
     })
 )(AdvertObject);

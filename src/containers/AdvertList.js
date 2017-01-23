@@ -62,6 +62,6 @@ export default connect(
         adverts: state.adverts.list
     }),
     dispatch => ({
-        provider: new AdvertProvider(dispatch)
+        advertProvider: new AdvertProvider(dispatch)
     })
 )(AdvertList);
